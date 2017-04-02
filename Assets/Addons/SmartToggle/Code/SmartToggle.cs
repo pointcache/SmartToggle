@@ -48,6 +48,21 @@
             else
                 SetFalse();
         }
+        
+        /// <summary>
+        /// Will not raise events
+        /// </summary>
+        /// <param name="val"></param>
+        public void SetStateDirectly(bool val) {
+            state = val;
+            driver = transition / 2f;
+            if (val) {
+                direction = 1f;
+            }
+            else {
+                direction = -1f;
+            }
+        }
 
         void Update() {
             driver += Time.deltaTime * direction;
