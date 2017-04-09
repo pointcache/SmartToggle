@@ -8,7 +8,11 @@
 
     public class SmartToggle : MonoBehaviour {
 
-        public bool InitialState;
+        public enum InitialState {
+            @true, @false, manual
+        }
+
+        public InitialState initialState;
         public Image on;
         public Image knob;
         public RectTransform knobRt, toggleOff;
@@ -31,9 +35,11 @@
 
 
         void OnEnable() {
-            state = InitialState;
-            driver = transition / 2f;
-            SetState(state);
+            if (initialState != InitialState.manual) {
+                driver = transition / 2f;
+                state = initialState == InitialState.@true ? true : false;
+                SetState(state);
+            }
         }
 
         public void Toggle() {
@@ -48,7 +54,7 @@
             else
                 SetFalse();
         }
-        
+
         /// <summary>
         /// Will not raise events
         /// </summary>
